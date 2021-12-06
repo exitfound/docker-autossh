@@ -7,13 +7,10 @@ RUN zypper --non-interactive --no-gpg-checks refresh \
     && zypper --non-interactive --no-gpg-checks install -y \
     vim \
     curl \
-    wget \
     autossh \
     net-tools \
     iputils \
-    iproute2 \
-    iproute2-arpd \
-    iproxy
+    iproute2
 
 RUN useradd -g users -d /home/autossh autossh
 RUN mkdir -p /home/autossh/.ssh/ \
@@ -25,4 +22,4 @@ RUN mkdir -p /home/autossh/.ssh/ \
 WORKDIR /home/autossh/
 USER autossh
 
-ENTRYPOINT ["autossh", "-N", "-M", "0", "-o", "ServerAliveInterval 45", "-o", "ServerAliveCountMax 2", "-o", "StrictHostKeyChecking no", "-i", "/home/autossh/.ssh/id_rsa", "-L", "8080:localhost:80", "root@34.88.132.198"]
+ENTRYPOINT ["autossh", "-N", "-M", "0", "-o", "ServerAliveInterval 45", "-o", "ServerAliveCountMax 2", "-o", "StrictHostKeyChecking no", "-i", "/home/autossh/.ssh/id_rsa", "-L", "8080:localhost:80", "root@10.0.0.1"]
