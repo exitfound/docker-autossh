@@ -20,7 +20,7 @@ RUN mkdir -p /home/autossh/.ssh/ \
 WORKDIR /home/autossh/
 USER autossh
 
-# ENTRYPOINT ["autossh", "-N", "-M", "0", "-o", "ServerAliveInterval 45", "-o", "ServerAliveCountMax 2", "-o", "StrictHostKeyChecking no", "-i", "/home/autossh/.ssh/id_rsa", "-L", "8080:localhost:80", "root@10.0.0.1"]
+ENTRYPOINT ["autossh", "-N", "-M", "0", "-o", "ServerAliveInterval 45", "-o", "ServerAliveCountMax 2", "-o", "StrictHostKeyChecking no", "-i", "/home/autossh/.ssh/id_rsa", "-L", "8080:localhost:80", "root@10.0.0.1"]
 
 # ENTRYPOINT в сочетании с энвайронтами в команде docker run:
-ENTRYPOINT autossh -N -M 0 -o "ServerAliveInterval 45" -o "ServerAliveCountMax 2" -o "StrictHostKeyChecking no" -i /home/autossh/.ssh/id_rsa -p $SSH_PORT -L $SSH_TUNNEL $SSH_USER@$SSH_HOST
+# ENTRYPOINT autossh -N -M 0 -o "ServerAliveInterval 45" -o "ServerAliveCountMax 2" -o "StrictHostKeyChecking no" -i /home/autossh/.ssh/id_rsa -p $SSH_PORT -L $SSH_TUNNEL $SSH_USER@$SSH_HOST
