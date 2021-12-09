@@ -28,6 +28,12 @@
 
 `docker run -d --name autossh --network host --restart unless-stopped autossh:autossh`
 
+Если вам нужно запустить несколько контейнеров с разными значениями, можно использовать параметр -e. Выглядеть это будет следующим образом:
+
+`docker run -d -e <YOUR_ENV> --name autossh --network host --restart unless-stopped autossh:autossh`
+
+Только предварительно необходимо их определить в команде autossh, в файле autossh.dockerfile. В самом Dockerfile лежит пример того, как это должно выглядеть.
+
 ## Работа с autossh:
 
 В данном случае команда выражена следующим образом:
