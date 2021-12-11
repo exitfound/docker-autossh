@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+  autossh:
+    container_name: autossh
+    image: opensuse/leap:15.3
+    build:
+      context: .
+      dockerfile: autossh-with-envs.dockerfile
+      args:
+        SSH_PRV_KEY: 
+    environment:
+      SSH_PORT: "2000"
+      SSH_TUNNEL: "3000:localhost:3000"
+      SSH_USER: "root"
+      SSH_HOST: "10.0.0.1"
+    network_mode: host
+    restart: unless-stopped
