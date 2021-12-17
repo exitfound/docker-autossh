@@ -20,4 +20,4 @@ RUN mkdir -p /home/autossh/.ssh/ \
 WORKDIR /home/autossh/
 USER autossh
 
-ENTRYPOINT ["autossh", "-N", "-M", "0", "-o", "ServerAliveInterval 45", "-o", "ServerAliveCountMax 2", "-o", "StrictHostKeyChecking no", "-i", "/home/autossh/.ssh/id_rsa", "-L", "8080:localhost:80", "root@10.0.0.1"]
+ENTRYPOINT ["autossh", "-N", "-M", "0", "-o", "ServerAliveInterval 45", "-o", "ServerAliveCountMax 2", "-o", "StrictHostKeyChecking no", "-i", "/home/autossh/.ssh/id_rsa", "-p", "2000",  "-L", "8080:localhost:80", "root@10.0.0.1"]
