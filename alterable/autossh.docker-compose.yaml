@@ -9,7 +9,7 @@ services:
       args:
         SSH_PRV_KEY: 
     environment:
-      SSH_PORT: "2000"
+      SSH_PORT: "22"
       SSH_TUNNEL: "3000:localhost:3000"
       SSH_USER: "root"
       SSH_HOST: "10.0.0.1"
