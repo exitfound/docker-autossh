@@ -16,7 +16,9 @@
 
 После того как проект был склонирован, необходимо перейти в диреткорию, чтобы собрать образ. Сделать это можно с помощью следующей команды:
 
-`docker build -t "autossh:autossh" -f autossh.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" .`
+```
+docker build -t "autossh:autossh" -f autossh.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" .
+```
 
 где:
 
@@ -26,27 +28,37 @@
 
 После того как образ был собран, контейнер можно запустить с помощью следующей команды:
 
-`docker run -d --name autossh --network host --restart unless-stopped autossh:autossh`
+```
+docker run -d --name autossh --network host --restart unless-stopped autossh:autossh
+```
 
 ## Запуск контейнера с переменными:
 
 Если вам нужно запустить несколько контейнеров с разными значениями, можно использовать параметр -e. Только предварительно необходимо собрать образ на базе другого Dockerfile, который будет заточен под работу с переменными, так как содержимое несколько отлично от иммутабельного контейнера. Собрать образ можно с помощью следующей команды:
 
-`docker build -t "autossh-envs:autossh-envs" -f autossh-with-envs.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" . `
+```
+docker build -t "autossh-envs:autossh-envs" -f autossh-with-envs.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" . 
+```
 
 Запуск контейнера будет выглядеть следующим образом:
 
-`docker run -d -e <YOUR_ENV> --name autossh --network host --restart unless-stopped autossh-envs:autossh-envs`
+```
+docker run -d -e <YOUR_ENV> --name autossh --network host --restart unless-stopped autossh-envs:autossh-envs
+```
 
 ## Запуск через docker-compose:
 
-По сути своей это та же сборка образа с указанием переменных, где запуск осуществляется не через команду docker run. Полезно будет, если вам нужно autossh добавить к уже существующему композу, где присутствуют прочие сервисы. Однако, чтобы передать ключ с хостового узла в аргумент, необходимо задействовать команду из вне, поэтому запуск осуществляется через сторонний скрипт, поскольку реализацию запрашиваемого функционала композ осуществить не смог. Чтобы запустить скрипт, необходимо назначить соответствующие права:
+По сути своей это та же сборка образа с указанием переменных, где запуск осуществляется не через команду docker run. Полезно будет, если вам нужно autossh добавить к уже существующему композу, где присутствуют прочие сервисы. Однако, чтобы передать ключ с хостового узла в аргумент, необходимо задействовать команду из вне, поэтому перед запуском docker-compose необходимо экспортировать ключ в переменную, поскольку реализацию запрашиваемого функционала композ осуществить не может. Последовательность команд выглядит следующим образом:
 
-`chmod +x key-export.sh`
+```
+export SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)"
+```
 
-После можно запускать сам скрипт. Сделать это можно следующим образом:
+После можно запускать docker-compose. Сделать это можно следующим образом:
 
-`./key-export.sh`
+```
+docker-compose -f autossh.docker-compose.yaml up -d
+```
 
 ## Работа с autossh:
 
