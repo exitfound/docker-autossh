@@ -17,7 +17,7 @@
 После того как проект был склонирован, необходимо перейти в директорию, чтобы собрать образ. Сделать это можно с помощью следующей команды:
 
 ```
-docker build -t "autossh:autossh" -f autossh.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" .
+docker build -t "autossh:autossh" -f ./immutable/autossh.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" .
 ```
 
 где:
@@ -37,7 +37,7 @@ docker run -d --name autossh --network host --restart unless-stopped autossh:aut
 Если вам нужно запустить несколько контейнеров с разными значениями, можно использовать параметр -e. Только предварительно необходимо собрать образ на базе другого Dockerfile, который будет заточен под работу с переменными, так как содержимое несколько отлично от иммутабельного контейнера. Собрать образ можно с помощью следующей команды:
 
 ```
-docker build -t "autossh-envs:autossh-envs" -f autossh-with-envs.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" . 
+docker build -t "autossh-envs:autossh-envs" -f ./alterable/autossh-with-envs.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" . 
 ```
 
 Запуск контейнера будет выглядеть следующим образом:
