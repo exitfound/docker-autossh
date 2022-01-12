@@ -37,7 +37,7 @@ docker run -d --name autossh --network host --restart unless-stopped autossh:aut
 Если вам нужно запустить несколько контейнеров с разными значениями, можно использовать параметр -e. Только предварительно необходимо собрать образ на базе другого Dockerfile, который будет заточен под работу с переменными, так как содержимое несколько отлично от иммутабельного контейнера. Собрать образ можно с помощью следующей команды:
 
 ```
-docker build -t "autossh-envs:autossh-envs" -f ./alterable/autossh-with-envs.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" . 
+docker build -t "autossh-envs:autossh-envs" -f autossh-with-envs.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" . 
 ```
 
 Запуск контейнера будет выглядеть следующим образом:
@@ -58,6 +58,12 @@ export SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)"
 
 ```
 docker-compose -f autossh.docker-compose.yaml up -d
+```
+
+Альтернативный вариант запуска заключен в файле Makefile, который делает тоже самое, но одной командой. Чтобы запустить, выполните:
+
+```
+make -f Makefile
 ```
 
 ## Работа с autossh:
