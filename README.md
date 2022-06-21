@@ -57,7 +57,7 @@ export SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)"
 После можно запускать docker-compose. Сделать это можно следующим образом:
 
 ```
-docker-compose -f autossh.docker-compose.yaml up -d
+docker-compose -f autossh-docker-compose.yaml up -d
 ```
 
 Альтернативный вариант запуска заключен в файле Makefile, который делает тоже самое, но одной командой. Чтобы запустить, выполните:
@@ -70,7 +70,7 @@ make -f Makefile
 
 В данном случае команда выражена следующим образом:
 
-`autossh -N -M 0 -o "ServerAliveInterval 45" -o "ServerAliveCountMax 2" -o "StrictHostKeyChecking no" -i /home/autossh/.ssh/id_rsa -p 2000 -L 3000:localhost:3000 root@10.0.0.1`
+`autossh -N -M 0 -o "ServerAliveInterval 45" -o "ServerAliveCountMax 2" -o "StrictHostKeyChecking no" -i /home/autossh/.ssh/id_rsa -p 22 -L 8080:192.168.88.225:80 medoed@192.168.88.225`
 
 где:
 
@@ -81,8 +81,8 @@ make -f Makefile
 - -o "StrictHostKeyChecking no" – автоматическое принятие ключа. Данный параметр обязателен для работы контейнера.
 - -i – указывается путь к приватному ключу внутри контейнера.
 - -p – указывается номер порта удаленного сервера.
-- -L 3000:localhost:3000 – конструкция создаваемого туннеля.
-- [root@10.0.0.1](https://www.twitch.tv/exitfound) – имя пользователя и IP-адрес целевого сервера.
+- -L 8080:192.168.88.225:80 – конструкция создаваемого туннеля.
+- [medoed@192.168.88.225](https://www.twitch.tv/exitfound) – имя пользователя и IP-адрес целевого сервера.
 
 В общем случае необходимо будет только подставить значение своего порта для SSH, тип туннеля и соответствующие порты для туннеля, а также имя пользователя и IP-адрес целевого сервера.
 
