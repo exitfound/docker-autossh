@@ -1,13 +1,11 @@
-FROM opensuse/leap:15.3 AS autossh
+FROM ubuntu:20.04 AS autossh
 
 ARG SSH_PRV_KEY
 ENV SSH_PRV_KEY=${SSH_PRV_KEY}
-RUN zypper --non-interactive --no-gpg-checks install -y --force \
-    vim \
-    curl \
+RUN apt-get update \
+    && apt-get install -y \
     autossh \
     net-tools \
-    iputils \
     iproute2 \
     && useradd -g users -d /home/autossh autossh \
     && mkdir -p /home/autossh/.ssh/ \
@@ -17,6 +15,7 @@ RUN zypper --non-interactive --no-gpg-checks install -y --force \
     && chown -R autossh:users /home/autossh
 
 WORKDIR /home/autossh/
+
 USER autossh
 
-ENTRYPOINT ["autossh", "-N", "-M", "0", "-o", "ServerAliveInterval 45", "-o", "ServerAliveCountMax 2", "-o", "StrictHostKeyChecking no", "-i", "/home/autossh/.ssh/id_rsa", "-p", "2000",  "-L", "8080:localhost:80", "root@10.0.0.1"]
+ENTRYPOINT ["autossh", "-N", "-M", "0", "-o", "ServerAliveInterval 45", "-o", "ServerAliveCountMax 2", "-o", "StrictHostKeyChecking no", "-i", "/home/autossh/.ssh/id_rsa", "-p", "22",  "-L", "8080:192.168.88.225:80", "medoed@192.168.88.225"]
