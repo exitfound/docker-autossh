@@ -5,7 +5,7 @@ pipeline {
        stages { 
            stage ('Build') { 
                steps { 
-                   echo 'Running build phase. ' 
+                   sh 'curl http://localhost' 
                }
            }
        }
