@@ -1,14 +1,12 @@
 pipeline { 
     agent {
-        docker {
-            image 'nginx:latest'
-        }
+        docker 'nginx:latest'
     }
-    stages {
-        stage {
-            steps {
-                sh 'curl http://localhost'
-            }
-        }
-    }
-}
+       stages { 
+           stage ('Build') { 
+               steps { 
+                   echo 'Running build phase. ' 
+               }
+           }
+       }
+   }
