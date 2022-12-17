@@ -1,11 +1,11 @@
 pipeline { 
     agent {
-        docker 'ubuntu'
+        docker 'ubuntu:latest'
     }
        stages { 
            stage ('Build') { 
                steps { 
-                   sh 'apt update && apt install -y curl && curl https://www.google.com' 
+                   sh 'sudo apt update && sudo apt install -y curl && curl https://www.google.com' 
                }
            }
        }
