@@ -3,6 +3,7 @@ pipeline {
         docker { 
             image 'ubuntu:latest'
             args '-u 0'
+        }
     }
        stages { 
            stage ('Build') { 
