@@ -5,7 +5,7 @@ pipeline {
        stages { 
            stage ('Build') { 
                steps { 
-                   sh 'sudo apt update && sudo apt install -y curl && curl https://www.google.com' 
+                   sh 'apt update && sudo install -y curl && curl https://www.google.com' 
                }
            }
        }
