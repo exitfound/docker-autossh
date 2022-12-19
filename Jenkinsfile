@@ -14,7 +14,7 @@ pipeline {
            stage ('Test') { 
                 steps { 
                     cleanWs()
-                    sh 'curl $params.GITHUB_REPO'
+                    sh "curl $params.GITHUB_REPO"
                     
                }
            }
