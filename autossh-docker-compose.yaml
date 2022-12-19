@@ -2,16 +2,18 @@ version: '3.5'
 services:
   autossh:
     container_name: autossh
-    image: ubuntu:20.04
     build:
       context: .
       dockerfile: autossh-with-envs.dockerfile
       args:
         SSH_PRV_KEY: 
     environment:
-      SSH_PORT: "port_value"
-      SSH_TUNNEL: "8080:host_value:80"
-      SSH_USER: "user_value"
-      SSH_HOST: "host_value"
+      SSH_PORT: "ssh port"
+      SSH_MODE: "-L or -R"
+      SSH_TUNNEL_REMOTE_PORT: "remote port (for -L mode)"
+      SSH_TUNNEL_IP: "your endpoint"
+      SSH_TUNNEL_LOCAL_PORT: "local port (for -L mode)"
+      SSH_USER: "user of your endpoint"
+      SSH_HOST: "your endpoint"
     network_mode: host
     restart: unless-stopped
