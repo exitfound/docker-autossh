@@ -1,15 +1,33 @@
-pipeline { 
+pipeline {
     agent {
-        docker { 
-            image 'ubuntu:latest'
-            args '-u 0'
-        }
+        label 'agent-1'
     }
-       stages { 
-           stage ('Build') { 
-               steps { 
-                   sh 'apt-get update && apt-get install -y curl && curl https://www.google.com' 
-               }
-           }
-       }
-   }
+    environment {
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+// pipeline { 
+//     agent {
+//         docker { 
+//             image 'ubuntu:latest'
+//             args '-u 0'
+//         }
+//     }
+//        stages { 
+//            stage ('Build') { 
+//                steps { 
+//                    sh 'apt-get update && apt-get install -y curl && curl https://www.google.com' 
+//                }
+//            }
+//        }
+//    }
