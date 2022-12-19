@@ -14,7 +14,7 @@
 
 ## Запуск иммутабельного контейнера:
 
-После того как проект был склонирован, необходимо перейти в директорию, чтобы собрать образ. Сделать это можно с помощью следующей команды:
+После того как проект был склонирован, необходимо перейти в директорию, чтобы собрать образ. Только перед этим стоит изменить содержимое строки entrypoint, подставив свои значения. В целом сделать это можно с помощью следующей команды:
 
 ```
 docker build -t "autossh:autossh" -f ./immutable/autossh.dockerfile --build-arg SSH_PRV_KEY="$(cat ~/.ssh/id_rsa)" .
@@ -43,8 +43,10 @@ docker build -t "autossh-envs:autossh-envs" -f autossh-with-envs.dockerfile --bu
 Запуск контейнера будет выглядеть следующим образом:
 
 ```
-docker run -d -e <YOUR_ENV> --name autossh --network host --restart unless-stopped autossh-envs:autossh-envs
+docker run -d -e SSH_PORT="22" -e SSH_MODE="-L" -e SSH_TUNNEL_REMOTE_PORT="8000" -e SSH_TUNNEL_IP="192.168.88.218" -e SSH_TUNNEL_LOCAL_PORT="9000" -e SSH_USER="vault" -e SSH_HOST="192.168.88.218" --name autossh --network host --restart unless-stopped autossh-envs:autossh-envs
 ```
+
+– где все переменные ссылаются на имена, указанные в entrypoint файла autossh-with-envs.dockerfile.
 
 ## Запуск через docker-compose:
 
