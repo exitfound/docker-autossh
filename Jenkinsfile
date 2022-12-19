@@ -15,7 +15,7 @@ pipeline {
                 steps { 
                     cleanWs()
                     sh('''
-                        curl ${GITHUB_REPO}
+                        curl $params.GITHUB_REPO
                     ''')
                }
            }
