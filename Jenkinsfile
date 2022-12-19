@@ -30,7 +30,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'login', passwordVariable: 'password')]) {
                     sh('''
                     sudo docker login -u $login -p $password
-                    sudo docker push $DOCKERHUB_REPO:$IMAGE_TAG
+                    sudo docker push $DOCKERHUB_IMAGE:$DOCKERHUB_TAG
                     ''')
                 }
             }
