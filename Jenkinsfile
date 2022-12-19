@@ -7,7 +7,7 @@ pipeline {
     // }
 
     parameters {
-        string(name: 'GITHUB_REPO', defaultValue: 'https://github.com/exitfound/docker-autossh', trim: true, description: 'Тэг для образа autossh:')
+        string(name: 'GITHUB_REPO', defaultValue: '', trim: true, description: 'Тэг для образа autossh:')
     }
 
     stages { 
