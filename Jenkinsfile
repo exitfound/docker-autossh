@@ -13,13 +13,24 @@ pipeline {
     // }
 
     stages { 
-        stage ('Build') { 
+        stage ('Build Image') { 
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key_image', keyFileVariable: 'SSH_KEY_IMAGE')]) {
                     sh('''
                     set +x
                     ls -la
                     sudo docker build -t "$DOCKERHUB_IMAGE:$DOCKERHUB_TAG" -f autossh-with-envs.dockerfile --build-arg SSH_PRV_KEY="$(cat $SSH_KEY_IMAGE)" .
+                    ''')
+                }
+            }
+        }
+
+        stage('Push Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'login', passwordVariable: 'password')]) {
+                    sh('''
+                    sudo docker login -u $login -p $password
+                    sudo docker push $DOCKERHUB_REPO:$IMAGE_TAG
                     ''')
                 }
             }
