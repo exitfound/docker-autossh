@@ -31,14 +31,14 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key_host', keyFileVariable: 'SSH_KEY_HOST')]){
                     sh '''
-                    set +x
                     ssh -i $SSH_KEY_HOST -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "
                     sudo docker pull $DOCKERHUB_IMAGE:$DOCKERHUB_TAG && \
-                    sudo docker run -d -e SSH_TUNNEL_PORT="${SSH_PORT}" \
-                    -e SSH_TUNNEL_MODE=${SSH_TUNNEL_MODE} \
-                    -e SSH_TUNNEL_REMOTEPORT=${SSH_TUNNEL_REMOTE_PORT} \
-                    -e SSH_TUNNEL_IP=${SSH_TUNNEL_IP} \
-                    -e SSH_TUNNEL_LOCALPORT=${SSH_TUNNEL_LOCAL_PORT}
+                    sudo docker run -d \
+                    -e SSH_TUNNEL_PORT="${SSH_PORT}" \
+                    -e SSH_TUNNEL_MODE="${SSH_TUNNEL_MODE}" \
+                    -e SSH_TUNNEL_REMOTEPORT="${SSH_TUNNEL_REMOTE_PORT}" \
+                    -e SSH_TUNNEL_IP="${SSH_TUNNEL_IP}" \
+                    -e SSH_TUNNEL_LOCALPORT="${SSH_TUNNEL_LOCAL_PORT}" \
                     -e SSH_TUNNEL_USER="${SSH_USER}" \
                     -e SSH_TUNNEL_HOST="${SSH_HOST}" \
                     --name autossh \
