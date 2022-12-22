@@ -8,12 +8,12 @@ services:
       args:
         SSH_PRV_KEY: 
     environment:
-      SSH_PORT: "ssh port"
-      SSH_MODE: "-L or -R"
-      SSH_TUNNEL_REMOTE_PORT: "remote port (for -L mode)"
+      SSH_TUNNEL_PORT: "ssh port"
+      SSH_TUNNEL_MODE: "-L or -R"
+      SSH_TUNNEL_REMOTEPORT: "remote port (for -L mode)"
       SSH_TUNNEL_IP: "your endpoint"
-      SSH_TUNNEL_LOCAL_PORT: "local port (for -L mode)"
-      SSH_USER: "user of your endpoint"
-      SSH_HOST: "your endpoint"
+      SSH_TUNNEL_LOCALPORT: "local port (for -L mode)"
+      SSH_TUNNEL_USER: "user of your endpoint"
+      SSH_TUNNEL_HOST: "your endpoint"
     network_mode: host
     restart: unless-stopped
