@@ -25,12 +25,10 @@ pipeline {
     stages {
         stage ('Deploy Autossh Image') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key_host', keyFileVariable: 'SSH_KEY_HOST'),
-                                string(credentialsId: 'autossh_endpoint_user', variable: 'REMOTE_USER'),
-                                string(credentialsId: 'autossh_endpoint_ip', variable: 'REMOTE_IP')]){
+                withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key_host', keyFileVariable: 'SSH_KEY_HOST')]){
                     sh '''
                     set +x
-                    ssh -i $SSH_KEY_HOST -o StrictHostKeyChecking=no $REMOTE_USER@REMOTE_IP "sudo docker pull $DOCKERHUB_IMAGE:$DOCKERHUB_TAG"
+                    ssh -i $SSH_KEY_HOST -o StrictHostKeyChecking=no ${SSH_USER}@{SSH_HOST} "sudo docker pull $DOCKERHUB_IMAGE:$DOCKERHUB_TAG"
                     '''
                 }
             }
