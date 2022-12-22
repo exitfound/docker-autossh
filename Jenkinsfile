@@ -8,24 +8,19 @@ pipeline {
         DOCKERHUB_TAG = 'latest'
     }
 
-    // parameters {
-    //     string(name: 'GITHUB_REPO', defaultValue: '', trim: true, description: 'Тэг для образа autossh:')
-    // }
-
     stages { 
-        stage ('Build Image') { 
+        stage ('Build Autossh Image') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key_image', keyFileVariable: 'SSH_KEY_IMAGE')]) {
                     sh('''
                     set +x
-                    ls -la
                     sudo docker build -t "$DOCKERHUB_IMAGE:$DOCKERHUB_TAG" -f autossh-with-envs.dockerfile --build-arg SSH_PRV_KEY="$(cat $SSH_KEY_IMAGE)" .
                     ''')
                 }
             }
         }
 
-        stage('Push Image') {
+        stage('Push Autossh Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'login', passwordVariable: 'password')]) {
                     sh('''
@@ -34,6 +29,12 @@ pipeline {
                     ''')
                 }
             }
+        }
+    }
+
+    post { 
+        always { 
+            cleanWs()
         }
     }
 }
