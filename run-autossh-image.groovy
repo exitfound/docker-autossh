@@ -31,6 +31,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key_host', keyFileVariable: 'SSH_KEY_HOST')]){
                     sh '''
+                    set +x
                     ssh -i $SSH_KEY_HOST -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "sudo docker pull $DOCKERHUB_IMAGE:$DOCKERHUB_TAG"
                     ssh -i $SSH_KEY_HOST -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "sudo docker rm -f $(sudo docker ps | sudo grep autossh | sudo awk '{print $1}') \
                     && sudo docker run -d \
