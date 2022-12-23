@@ -30,11 +30,13 @@ pipeline {
         stage ('Run Autossh Image') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key_host', keyFileVariable: 'SSH_KEY_HOST')]){
+                    script {
+                        sudo docker rm -f $(sudo docker ps | sudo grep autossh | sudo awk '{print $1}')
+                    }
                     sh '''
                     set +x
                     ssh -i $SSH_KEY_HOST -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "sudo docker pull $DOCKERHUB_IMAGE:$DOCKERHUB_TAG"
-                    ssh -i $SSH_KEY_HOST -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "sudo docker rm -f $(sudo docker ps | grep autossh) \
-                    && sudo docker run -d \
+                    ssh -i $SSH_KEY_HOST -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "sudo docker run -d \
                     -e SSH_TUNNEL_PORT="${SSH_TUNNEL_PORT}" \
                     -e SSH_TUNNEL_MODE="${SSH_TUNNEL_MODE}" \
                     -e SSH_TUNNEL_LOCALPORT="${SSH_TUNNEL_LOCALPORT}" \
