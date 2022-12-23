@@ -21,9 +21,9 @@ pipeline {
 
         // Параметры для настройки туннеля:
         string(name: 'SSH_TUNNEL_MODE', defaultValue: '-L', trim: true, description: 'Режим, в котором будет работать туннель (прямой или обратный). По умолчанию используется прямой:')        
-        string(name: 'SSH_TUNNEL_REMOTEPORT', defaultValue: '', trim: true, description: 'Удаленный порт сервиса, который запущен на конечном инстансе и это тот сервис, который будет прокинут через Autossh:')
-        string(name: 'SSH_TUNNEL_IP', defaultValue: '', trim: true, description: 'IP-адрес конечного инстанса, до которого будет прокинут туннель:')
         string(name: 'SSH_TUNNEL_LOCALPORT', defaultValue: '', trim: true, description: 'Локальный порт, представляющий собой сервис, который будет проброшен с конечного инстанса:')
+        string(name: 'SSH_TUNNEL_IP', defaultValue: '', trim: true, description: 'IP-адрес конечного инстанса, до которого будет прокинут туннель:')
+        string(name: 'SSH_TUNNEL_REMOTEPORT', defaultValue: '', trim: true, description: 'Удаленный порт сервиса, который запущен на конечном инстансе и это тот сервис, который будет прокинут через Autossh:')
     }
 
     stages {
