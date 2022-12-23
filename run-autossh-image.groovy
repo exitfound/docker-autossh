@@ -31,7 +31,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key_host', keyFileVariable: 'SSH_KEY_HOST')]){
                     script {
-                        sudo docker rm -f $(sudo docker ps | sudo grep autossh | sudo awk '{print $1}')
+                        sh(script: sudo docker rm -f $(sudo docker ps | sudo grep autossh | sudo awk '{print $1}'), returnStdout: true)
                     }
                     sh '''
                     set +x
