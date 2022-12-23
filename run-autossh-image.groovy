@@ -21,9 +21,9 @@ pipeline {
 
         // Параметры для настройки туннеля:
         string(name: 'SSH_TUNNEL_MODE', defaultValue: '-L', trim: true, description: 'Режим, в котором будет работать туннель (прямой или обратный). По умолчанию используется прямой:')        
-        string(name: 'SSH_TUNNEL_REMOTEPORT', defaultValue: '', trim: true, description: 'Удаленный порт, который будет фигурировать на конечном инстансе, к которому будет подключаться контейнер через Autossh:')
+        string(name: 'SSH_TUNNEL_LOCALPORT', defaultValue: '', trim: true, description: 'Удаленный порт, который будет фигурировать на конечном инстансе, к которому будет подключаться контейнер через Autossh:')
         string(name: 'SSH_TUNNEL_IP', defaultValue: '', trim: true, description: 'IP-адрес конечного инстанса, до которого будет прокинут туннель:')
-        string(name: 'SSH_TUNNEL_LOCALPORT', defaultValue: '', trim: true, description: 'Локальный порт, представляющий собой какой-либо сервис, который мы хотим прокинуть на наш конечный инстанс:')
+        string(name: 'SSH_TUNNEL_REMOTEPORT', defaultValue: '', trim: true, description: 'Локальный порт, представляющий собой какой-либо сервис, который мы хотим прокинуть на наш конечный инстанс:')
     }
 
     stages {
@@ -35,9 +35,9 @@ pipeline {
                     ssh -i $SSH_KEY_HOST -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "sudo docker run -d \
                     -e SSH_TUNNEL_PORT="${SSH_TUNNEL_PORT}" \
                     -e SSH_TUNNEL_MODE="${SSH_TUNNEL_MODE}" \
-                    -e SSH_TUNNEL_REMOTEPORT="${SSH_TUNNEL_REMOTEPORT}" \
-                    -e SSH_TUNNEL_IP="${SSH_TUNNEL_IP}" \
                     -e SSH_TUNNEL_LOCALPORT="${SSH_TUNNEL_LOCALPORT}" \
+                    -e SSH_TUNNEL_IP="${SSH_TUNNEL_IP}" \
+                    -e SSH_TUNNEL_REMOTEPORT="${SSH_TUNNEL_REMOTEPORT}" \
                     -e SSH_TUNNEL_USER="${SSH_TUNNEL_USER}" \
                     -e SSH_TUNNEL_HOST="${SSH_TUNNEL_HOST}" \
                     --name autossh \
