@@ -43,7 +43,7 @@ docker build -t "autossh-envs:autossh-envs" -f autossh-with-envs.dockerfile --bu
 Запуск контейнера будет выглядеть следующим образом:
 
 ```
-docker run -d -e SSH_PORT="22" -e SSH_MODE="-L" -e SSH_TUNNEL_REMOTE_PORT="8000" -e SSH_TUNNEL_IP="192.168.88.218" -e SSH_TUNNEL_LOCAL_PORT="9000" -e SSH_USER="vault" -e SSH_HOST="192.168.88.218" --name autossh --network host --restart unless-stopped autossh-envs:autossh-envs
+docker run -d -e SSH_TUNNEL_PORT="22" -e SSH_TUNNEL_MODE="-L" -e SSH_TUNNEL_REMOTEPORT="80" -e SSH_TUNNEL_IP="192.168.88.218" -e SSH_TUNNEL_LOCALPORT="8080" -e SSH_TUNNEL_USER="vault" -e SSH_TUNNEL_HOST="192.168.88.218" --name autossh --network host --restart unless-stopped autossh-envs:autossh-envs
 ```
 
 – где все переменные ссылаются на имена, указанные в entrypoint файла autossh-with-envs.dockerfile.
