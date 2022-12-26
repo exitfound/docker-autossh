@@ -4,7 +4,7 @@ services:
     container_name: autossh
     build:
       context: .
-      dockerfile: autossh-with-envs.dockerfile
+      dockerfile: autossh.dockerfile
       args:
         SSH_PRV_KEY: 
     environment:

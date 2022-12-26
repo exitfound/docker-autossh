@@ -32,7 +32,7 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key_image', keyFileVariable: 'SSH_KEY_IMAGE')]) {
                     sh('''
                     set +x
-                    sudo docker build -t "$DOCKERHUB_IMAGE:$DOCKERHUB_TAG" -f autossh-with-envs.dockerfile --build-arg SSH_PRV_KEY="$(cat $SSH_KEY_IMAGE)" .
+                    sudo docker build -t "$DOCKERHUB_IMAGE:$DOCKERHUB_TAG" -f autossh.dockerfile --build-arg SSH_PRV_KEY="$(cat $SSH_KEY_IMAGE)" .
                     ''')
                 }
             }
