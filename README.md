@@ -68,11 +68,15 @@ docker-compose -f autossh-docker-compose.yaml up -d
 make -f Makefile
 ```
 
+Примечание: Перечисленные в композе переменные, по желанию, можно также записать в .env файл, предварительно создав его. А в самом композе, вместо существующих переменных, вызывать этот .env файл. Оба варианта одинаково применимы.
+
 ## Работа с autossh:
 
 В данном случае команда выражена следующим образом:
 
-`autossh -N -M 0 -o "ServerAliveInterval 45" -o "ServerAliveCountMax 2" -o "StrictHostKeyChecking no" -i /home/autossh/.ssh/id_rsa -p 22 -L 8080:192.168.88.225:80 medoed@192.168.88.225`
+```
+autossh -N -M 0 -o "ServerAliveInterval 45" -o "ServerAliveCountMax 2" -o "StrictHostKeyChecking no" -i /home/autossh/.ssh/id_rsa -p 22 -L 8080:192.168.88.225:80 medoed@192.168.88.225
+```
 
 где:
 
